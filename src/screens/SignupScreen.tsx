@@ -84,7 +84,7 @@ const SignupScreen = ({ navigation }:Props) => {
                 >
                   SIGN UP
                 </Button>
-                <Button color="transparent" shadowless onPress={() => navigation.navigate('Signin')} style={{width: 200}}>
+                <Button color="transparent" shadowless onPress={() => navigation.navigate('Signin')} style={{ width: width * 0.9 }}>
                   <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
                     Already have an account? Sign In
                   </Text>
