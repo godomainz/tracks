@@ -14,27 +14,27 @@ const { height, width } = Dimensions.get('window');
 
 const SignupScreen = ({ navigation }:Props) => {
 
-    const initialState = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-          user: false,
-          email: false,
-          password: false,
+    const [email, setEmail] = useState('');
+    const [emailActive, setEmailActive] = useState(false);
+    const [password, setPassword ] = useState('');
+    const [passwordActive, setPasswordActive] = useState(false);
+
+    const handleChange = (name:string, value:string) => {
+        if(name === 'email'){
+            setEmail(value);
+        }else{
+            setPassword(value);
         }
-      }
-    const [state, setState] = useState(initialState);
-    
-    const handleChange = (name:any, value:any) => {
-        // setState({ [name]: value });
-      }
+    }
     
     const toggleActive = (name:any) => {
-        // const { active } = state;
-        // active[name] = !active[name];
-    
-        // setState({ active });
+        if(name === 'email'){
+            setEmailActive(true);
+            setPasswordActive(false);
+        }else{
+            setPasswordActive(true);
+            setEmailActive(false);
+        }
       }
 
     return (
@@ -47,53 +47,55 @@ const SignupScreen = ({ navigation }:Props) => {
         style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
         <Spacer><Text center style={{marginTop: 30}} color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 2}>Signup for Tracker</Text></Spacer>
         <Block flex middle>
-          <KeyboardAvoidingView behavior="padding" enabled>
-            <Block flex={1} center space="between">
-              <Block center>
-                <Input
-                  bgColor='transparent'
-                  placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                  borderless
-                  color="white"
-                  type="email-address"
-                  placeholder="Email"
-                  autoCapitalize="none"
-                  style={[styles.input, state.active.email ? styles.inputActive : null]}
-                  onChangeText={(text:any) => handleChange('email', text)}
-                  onBlur={() => toggleActive('email')}
-                  onFocus={() => toggleActive('email')}
-                />
-                <Input
-                  bgColor='transparent'
-                  placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                  borderless
-                  color="white"
-                  password
-                  viewPass
-                  placeholder="Password"
-                  iconColor="white"
-                  style={[styles.input, state.active.password ? styles.inputActive : null]}
-                  onChangeText={(text:any) => handleChange('password', text)}
-                  onBlur={() => toggleActive('password')}
-                  onFocus={() => toggleActive('password')}
-                />
-              </Block>
-              <Block flex={1} top style={{ marginTop: 20}}>
-                <Button
-                  shadowless
-                  style={{ height: 48, width: width * 0.9}}
-                  color={materialTheme.COLORS.BUTTON_COLOR}
-                >
-                  SIGN UP
-                </Button>
-                <Button color="transparent" shadowless onPress={() => navigation.navigate('Signin')} style={{ width: width * 0.9 }}>
-                  <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
-                    Already have an account? Sign In
-                  </Text>
-                </Button>
-              </Block>
-            </Block>
-          </KeyboardAvoidingView>
+            <KeyboardAvoidingView behavior="padding" enabled>
+                <Block flex={1} center space="between">
+                    <Block center>
+                        <Input
+                            bgColor='transparent'
+                            placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
+                            borderless
+                            color="white"
+                            type="email-address"
+                            placeholder="Email"
+                            autoCapitalize="none"
+                            style={[styles.input, emailActive ? styles.inputActive : null]}
+                            onChangeText={(text:string) => handleChange('email',text)}
+                            onBlur={() => toggleActive('email')}
+                            onFocus={() => toggleActive('email')}
+                            value={email}
+                        />
+                        <Input
+                            bgColor='transparent'
+                            placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
+                            borderless
+                            color="white"
+                            password
+                            viewPass
+                            placeholder="Password"
+                            iconColor="white"
+                            style={[styles.input, passwordActive ? styles.inputActive : null]}
+                            onChangeText={(text:string) => handleChange('password',text)}
+                            onBlur={() => toggleActive('password')}
+                            onFocus={() => toggleActive('password')}
+                            value={password}
+                        />
+                    </Block>
+                    <Block flex={1} top style={{ marginTop: 20}}>
+                        <Button
+                            shadowless
+                            style={{ height: 48, width: width * 0.9}}
+                            color={materialTheme.COLORS.BUTTON_COLOR}
+                        >
+                        SIGN UP
+                        </Button>
+                        <Button color="transparent" shadowless onPress={() => navigation.navigate('Signin')} style={{ width: width * 0.9 }}>
+                        <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
+                            Already have an account? Sign In
+                        </Text>
+                        </Button>
+                    </Block>
+                </Block>
+            </KeyboardAvoidingView>
         </Block>
       </LinearGradient>
     );
