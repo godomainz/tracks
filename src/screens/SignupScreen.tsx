@@ -37,7 +37,7 @@ const SignupScreen = ({ navigation }:Props) => {
       }
 
     return (
-        
+
         <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 0.25, y: 1.1 }}
@@ -79,7 +79,7 @@ const SignupScreen = ({ navigation }:Props) => {
               <Block flex={1} top style={{ marginTop: 20}}>
                 <Button
                   shadowless
-                  style={{ height: 48, width: width-40}}
+                  style={{ height: 48, width: width * 0.9}}
                   color={materialTheme.COLORS.BUTTON_COLOR}
                 >
                   SIGN UP
