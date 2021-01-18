@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState, useContext } from 'react';
 import {  StyleSheet, Dimensions , KeyboardAvoidingView, Platform } from 'react-native';
 import { Block, Button, Input, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../constants/';
 import { HeaderHeight } from "../constants/utils";
 import Spacer from '../components/Spacer';
+import { Context as AuthContext, AuthContextType } from '../context/AuthContext';
 
 interface Props {
     navigation: any;
@@ -13,6 +14,8 @@ interface Props {
 const { height, width } = Dimensions.get('window');
 
 const SignupScreen = ({ navigation }:Props) => {
+
+    const { state, signup } = useContext(AuthContext) as AuthContextType;
 
     const [email, setEmail] = useState('');
     const [emailActive, setEmailActive] = useState(false);
@@ -85,6 +88,11 @@ const SignupScreen = ({ navigation }:Props) => {
                             shadowless
                             style={{ height: 48, width: width * 0.9}}
                             color={materialTheme.COLORS.BUTTON_COLOR}
+                            onPress={()=>{
+                                console.log("SIGNUP");
+                                signup({email, password});                         
+                                }
+                            }
                         >
                         SIGN UP
                         </Button>
