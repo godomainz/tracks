@@ -4,6 +4,7 @@ import { Block, Button, Input, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../constants/';
 import { HeaderHeight } from "../constants/utils";
+import Spacer from '../components/Spacer';
 
 interface Props {
     navigation: any;
@@ -44,9 +45,10 @@ const SignupScreen = ({ navigation }:Props) => {
         locations={[0.2, 1]}
         colors={['#6C24AA', '#15002B']}
         style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
+        <Spacer><Text center style={{marginTop: 30}} color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 2}>Signup for Tracker</Text></Spacer>
         <Block flex middle>
           <KeyboardAvoidingView behavior="padding" enabled>
-            <Block style={{marginTop: 50}} flex={1} center space="between">
+            <Block flex={1} center space="between">
               <Block center>
                 <Input
                   bgColor='transparent'
