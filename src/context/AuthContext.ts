@@ -3,6 +3,7 @@ import { Auth, Login } from './Auth';
 import * as actionTypes from './ActionTypes';
 import trackerApi from '../api/tracker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { navigate } from '../navigationRef';
 
 const initialState: Auth = {
     token: null,
@@ -51,6 +52,7 @@ const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErro
             const response = await trackerApi.post('signup/', { email, password});
             await storeData('token',response.data.token);
             dispatch({ type: actionTypes.SIGN_UP, payload: response.data.token });
+            navigate('TrackList');
         } catch (error) {
             const errors:Object = error.response.data;
             let errorList: string[] = [];
