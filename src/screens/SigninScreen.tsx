@@ -7,6 +7,7 @@ import { HeaderHeight } from "../constants/utils";
 import Spacer from '../components/Spacer';
 import { Context as AuthContext, AuthContextType } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
+import NavLink from '../components/NavLink';
 
 interface Props {
     navigation: any;
@@ -29,13 +30,14 @@ const SigninScreen = ({ navigation }:Props) => {
             <KeyboardAvoidingView behavior="padding" enabled>
                 <Block flex={1} center space="between">
                     <AuthForm errorMessage={state.errorMessage} screenName="Sign in" onSubmit={signin} navigation={navigation}/>
-                    <Block flex={1} top >
+                    {/* <Block flex={1} top >
                         <Button color="transparent" shadowless onPress={() => navigation.navigate('Signup')} style={{ width: width * 0.9 }}>
                             <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
                                 Don't have an account? Sign Up
                             </Text>
                         </Button>
-                    </Block>
+                    </Block> */}
+                    <NavLink text="Don't have an account? Sign Up" routeName="Signup"/>
                 </Block>
             </KeyboardAvoidingView>
         </Block>
