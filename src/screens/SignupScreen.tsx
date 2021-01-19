@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-
+import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext, AuthContextType } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
@@ -12,11 +12,14 @@ interface Props {
 
 const SignupScreen = ({ navigation }:Props) => {
 
-    const { state, signup } = useContext(AuthContext) as AuthContextType;
+    const { state, signup, clearErrorMessage } = useContext(AuthContext) as AuthContextType;
     const authForm = <AuthForm errorMessage={state.errorMessage} screenName="Sign Up" onSubmit={signup} navigation={navigation}/>;
     const navLink =  <NavLink text="Already have an account? Sign In" routeName="Signin"/>;
     return (
-        <AuthParent authForm={authForm} navLink={navLink}/>
+        <>
+            <NavigationEvents onWillFocus={clearErrorMessage}/>
+            <AuthParent authForm={authForm} navLink={navLink}/>
+        </>
     );
 
 }

@@ -15,6 +15,7 @@ export interface AuthContextType {
     signup: ({email, password}:Login) => void;
     signin: ({email, password}:Login) => void;
     signout: () => void;
+    clearErrorMessage: () => void;
 }
 
 const authReducer = (state:Auth, action:actionTypes.Action): Auth => {
@@ -27,6 +28,8 @@ const authReducer = (state:Auth, action:actionTypes.Action): Auth => {
             return {...state, errorMessage: action.payload}
         case actionTypes.SIGN_IN:
             return {errorMessage: null, token: action.payload}
+        case actionTypes.CLEAR_ERROR_MESSAGE:
+            return { ...state ,errorMessage: null}
         default:
             return state;
     }
@@ -89,6 +92,10 @@ const signin = (dispatch:(action: actionTypes.SignInAction | actionTypes.SignInE
     }
 };
 
+const clearErrorMessage = (dispatch:(action: actionTypes.ClearErrorMessageAction)=>void) => () => {
+    dispatch({type : actionTypes.CLEAR_ERROR_MESSAGE});
+
+}
 
 const signOut = (dispatch:()=>actionTypes.SignUpAction) => {
     return () => {
@@ -96,4 +103,4 @@ const signOut = (dispatch:()=>actionTypes.SignUpAction) => {
     }
 }
 
-export const { Provider, Context } = createDataContext(authReducer, { signup, signin, signOut }, initialState);
+export const { Provider, Context } = createDataContext(authReducer, { signup, signin, signOut, clearErrorMessage }, initialState);
