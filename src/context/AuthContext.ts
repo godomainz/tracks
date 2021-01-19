@@ -56,7 +56,7 @@ const getErrors = (response: Object):string[] => {
     let errorList: string[] = [];
     for(const [key, value] of Object.entries(errors)){
         value.map((el:any)=>{
-            errorList.push(el);
+            errorList.push(key+": "+el);
         });
     }
     console.log(errorList)
@@ -64,29 +64,31 @@ const getErrors = (response: Object):string[] => {
 }
 
 const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErrorAction)=> void) => async ( {email, password}:Login ) => {
-        try {
-            const response = await trackerApi.post('signup/', { email, password});
-            await storeData('token',response.data.token);
-            dispatch({ type: actionTypes.SIGN_UP, payload: response.data.token });
-            navigate('TrackList');
-        } catch (error) {
-            dispatch({type: actionTypes.ADD_ERROR, payload: getErrors(error.response.data) });
-        }
+        
+    console.log("SIGNUP TRIGGERED")
+    try {
+        const response = await trackerApi.post('signup/', { email, password});
+        await storeData('token',response.data.token);
+        dispatch({ type: actionTypes.SIGN_UP, payload: response.data.token });
+        navigate('TrackList');
+    } catch (error) {
+        dispatch({type: actionTypes.ADD_ERROR, payload: getErrors(error.response.data) });
+    }
     };
 
 
 const signin = (dispatch:(action: actionTypes.SignInAction | actionTypes.SignInErrorAction)=> void) => async ( {email, password}:Login ) => {
-        
-        try {
-            console.log("SIGNIN");
-            console.log(`${email}, ${password}`);
-            const response = await trackerApi.post('signin/', { email, password});
-            await storeData('token',response.data.token)
-            dispatch({ type: actionTypes.SIGN_IN, payload: response.data.token });
-            navigate('TrackList');
-        } catch (error) {
-            dispatch({type: actionTypes.SIGNIN_ERROR, payload: getErrors(error.response.data) });
-        }
+    console.log("SIGNIN TRIGGERED")
+    try {
+        console.log("SIGNIN");
+        console.log(`${email}, ${password}`);
+        const response = await trackerApi.post('signin/', { email, password});
+        await storeData('token',response.data.token)
+        dispatch({ type: actionTypes.SIGN_IN, payload: response.data.token });
+        navigate('TrackList');
+    } catch (error) {
+        dispatch({type: actionTypes.SIGNIN_ERROR, payload: getErrors(error.response.data) });
+    }
 };
 
 

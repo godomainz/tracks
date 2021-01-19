@@ -18,30 +18,6 @@ const SigninScreen = ({ navigation }:Props) => {
 
     const { state, signin } = useContext(AuthContext) as AuthContextType;
 
-    const [email, setEmail] = useState('');
-    const [emailActive, setEmailActive] = useState(false);
-    const [password, setPassword ] = useState('');
-    const [passwordActive, setPasswordActive] = useState(false);
-
-
-    const handleChange = (name:string, value:string) => {
-        if(name === 'email'){
-            setEmail(value);
-        }else{
-            setPassword(value);
-        }
-    }
-    
-    const toggleActive = (name:any) => {
-        if(name === 'email'){
-            setEmailActive(true);
-            setPasswordActive(false);
-        }else{
-            setPasswordActive(true);
-            setEmailActive(false);
-        }
-      }
-
     return (
         <LinearGradient
         start={{ x: 0, y: 0 }}
@@ -49,57 +25,14 @@ const SigninScreen = ({ navigation }:Props) => {
         locations={[0.2, 1]}
         colors={['#6C24AA', '#15002B']}
         style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
-        <Spacer><Text center style={{marginTop: 30}} color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 2}>Signin for Tracker</Text></Spacer>
         <Block flex middle>
             <KeyboardAvoidingView behavior="padding" enabled>
                 <Block flex={1} center space="between">
-                    <Block center>
-                        <Input
-                            bgColor='transparent'
-                            placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                            borderless
-                            color="white"
-                            type="email-address"
-                            placeholder="Email"
-                            autoCapitalize="none"
-                            style={[styles.input, emailActive ? styles.inputActive : null]}
-                            onChangeText={(text:string) => handleChange('email',text)}
-                            onBlur={() => toggleActive('email')}
-                            onFocus={() => toggleActive('email')}
-                            value={email}
-                        />
-                        <Input
-                            bgColor='transparent'
-                            placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                            borderless
-                            color="white"
-                            password
-                            viewPass
-                            placeholder="Password"
-                            iconColor="white"
-                            style={[styles.input, passwordActive ? styles.inputActive : null]}
-                            onChangeText={(text:string) => handleChange('password',text)}
-                            onBlur={() => toggleActive('password')}
-                            onFocus={() => toggleActive('password')}
-                            value={password}
-                        />
-                        { state.errorMessage ? state.errorMessage.map((error:string) => <Text style={styles.error} key={error}>{error}</Text>) : null }
-                    </Block>
-                    <Block flex={1} top style={{ marginTop: 20}}>
-                        <Button
-                            shadowless
-                            style={{ height: 48, width: width * 0.9}}
-                            color={materialTheme.COLORS.BUTTON_COLOR}
-                            onPress={()=>{
-                                signin({email, password});                         
-                                }
-                            }
-                        >
-                        SIGN UP
-                        </Button>
+                    <AuthForm errorMessage={state.errorMessage} screenName="Sign in" onSubmit={signin} navigation={navigation}/>
+                    <Block flex={1} top >
                         <Button color="transparent" shadowless onPress={() => navigation.navigate('Signup')} style={{ width: width * 0.9 }}>
                             <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
-                                Already have an account? Sign Up
+                                Don't have an account? Sign Up
                             </Text>
                         </Button>
                     </Block>
