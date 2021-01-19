@@ -91,12 +91,6 @@ const AuthForm = ({ onSubmit, navigation, screenName, errorMessage }:Props) => {
 
 }
 
-AuthForm.navigationOptions = () => {
-    return {
-      headerShown: false,
-    };
-  };
-
 const styles = StyleSheet.create({
     signup: {
       marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
