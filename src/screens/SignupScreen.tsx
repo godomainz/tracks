@@ -86,7 +86,6 @@ const SignupScreen = ({ navigation }:Props) => {
                         { state.errorMessage ? state.errorMessage.map((error:string) => <Text style={styles.error} key={error}>{error}</Text>) : null }
                     </Block>
                     <Block flex={1} top style={{ marginTop: 20}}>
-                        
                         <Button
                             shadowless
                             style={{ height: 48, width: width * 0.9}}
@@ -99,9 +98,9 @@ const SignupScreen = ({ navigation }:Props) => {
                         SIGN UP
                         </Button>
                         <Button color="transparent" shadowless onPress={() => navigation.navigate('Signin')} style={{ width: width * 0.9 }}>
-                        <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
-                            Already have an account? Sign In
-                        </Text>
+                            <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
+                                Already have an account? Sign In
+                            </Text>
                         </Button>
                     </Block>
                 </Block>
