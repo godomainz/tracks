@@ -22,6 +22,8 @@ const SignupScreen = ({ navigation }:Props) => {
     const [password, setPassword ] = useState('');
     const [passwordActive, setPasswordActive] = useState(false);
 
+    console.log(state);
+
     const handleChange = (name:string, value:string) => {
         if(name === 'email'){
             setEmail(value);
@@ -82,8 +84,10 @@ const SignupScreen = ({ navigation }:Props) => {
                             onFocus={() => toggleActive('password')}
                             value={password}
                         />
+                        { state.errorMessage ? state.errorMessage.map((error:string) => <Text style={styles.error} key={error}>{error}</Text>) : null }
                     </Block>
                     <Block flex={1} top style={{ marginTop: 20}}>
+                        
                         <Button
                             shadowless
                             style={{ height: 48, width: width * 0.9}}
@@ -129,6 +133,11 @@ const styles = StyleSheet.create({
     inputActive: {
       borderBottomColor: "white",
     },
+    error: {
+        fontSize: 16,
+        color: "red",
+        width: width * 0.9
+    }
   });
 
 export default SignupScreen;

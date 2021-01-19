@@ -4,7 +4,8 @@ import * as actionTypes from './ActionTypes';
 import trackerApi from '../api/tracker';
 
 const initialState: Auth = {
-    isSignedIn: false
+    isSignedIn: false,
+    errorMessage: []
 }
 
 export interface AuthContextType {
@@ -16,20 +17,29 @@ export interface AuthContextType {
 
 const authReducer = (state:Auth, action:actionTypes.Action): Auth => {
     switch (action.type){
+        case actionTypes.ADD_ERROR:
+            return {...state, errorMessage: action.payload}
         default:
             return state;
     }
 }
 
-const signup = (dispatch:()=>actionTypes.SignUpAction) => {
+const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErrorAction)=> void) => {
     return async ( {email, password}:Login ) => {
         let response;
         try {
             response = await trackerApi.post('signup/', { email, password});
-            response = await trackerApi.post('signin/', { email, password});
-            console.log(response.data);
+            // response = await trackerApi.post('signin/', { email, password});
+            // console.log(response);
         } catch (error) {
-            console.log(error.response.data);
+            const errors:Object = error.response.data;
+            let errorList: string[] = [];
+            for(const [key, value] of Object.entries(errors)){
+                value.map((el:any)=>{
+                    errorList.push(el);
+                });
+            } 
+            dispatch({type: actionTypes.ADD_ERROR, payload: errorList });
         }
     }
 }
