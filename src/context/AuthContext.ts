@@ -63,13 +63,11 @@ const getErrors = (response: Object):string[] => {
             
         });
     }
-    console.log(errorList)
     return errorList;
 }
 
 const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErrorAction)=> void) => async ( {email, password}:Login ) => {
-        
-    console.log("SIGNUP TRIGGERED")
+
     try {
         const response = await trackerApi.post('signup/', { email, password});
         await storeData('token',response.data.token);
@@ -82,10 +80,7 @@ const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErro
 
 
 const signin = (dispatch:(action: actionTypes.SignInAction | actionTypes.SignInErrorAction)=> void) => async ( {email, password}:Login ) => {
-    console.log("SIGNIN TRIGGERED")
     try {
-        console.log("SIGNIN");
-        console.log(`${email}, ${password}`);
         const response = await trackerApi.post('signin/', { email, password});
         await storeData('token',response.data.token)
         dispatch({ type: actionTypes.SIGN_IN, payload: response.data.token });
