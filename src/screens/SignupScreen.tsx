@@ -92,7 +92,6 @@ const SignupScreen = ({ navigation }:Props) => {
                             style={{ height: 48, width: width * 0.9}}
                             color={materialTheme.COLORS.BUTTON_COLOR}
                             onPress={()=>{
-                                console.log("SIGNUP");
                                 signup({email, password});                         
                                 }
                             }
