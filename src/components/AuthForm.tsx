@@ -16,15 +16,14 @@ interface Props {
 
 const { height, width } = Dimensions.get('window');
 
-const AuthForm = ({ onSubmit, navigation, screenName, errorMessage }:Props) => {
-
-    const { state, signin } = useContext(AuthContext) as AuthContextType;
+const AuthForm = ({ onSubmit, screenName, errorMessage }:Props) => {
 
     const [email, setEmail] = useState('');
     const [emailActive, setEmailActive] = useState(false);
     const [password, setPassword ] = useState('');
     const [passwordActive, setPasswordActive] = useState(false);
-
+    console.log(screenName);
+    console.log(errorMessage)
 
     const handleChange = (name:string, value:string) => {
         if(name === 'email'){
@@ -77,7 +76,7 @@ const AuthForm = ({ onSubmit, navigation, screenName, errorMessage }:Props) => {
                     onFocus={() => toggleActive('password')}
                     value={password}
                 />
-                { errorMessage ? errorMessage.map((error:string) => <Text style={styles.error} key={error}>{error}</Text>) : null }
+                { errorMessage ? errorMessage.map((error:string) => <Text style={styles.error} key={Math.floor(Math.random()*9999)}>{error}</Text>) : null }
             </Block>
             <Button
                 shadowless

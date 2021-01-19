@@ -56,7 +56,11 @@ const getErrors = (response: Object):string[] => {
     let errorList: string[] = [];
     for(const [key, value] of Object.entries(errors)){
         value.map((el:any)=>{
-            errorList.push(key+": "+el);
+            if(key === "email" || key === "password"){
+                errorList.push(key+": "+el);
+            }
+            errorList.push(el);
+            
         });
     }
     console.log(errorList)

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Block, Button, Input, Text, theme } from 'galio-framework';
+import { Block, Button, Text, theme } from 'galio-framework';
 interface Props {
     navigation: any;
     text: string;
