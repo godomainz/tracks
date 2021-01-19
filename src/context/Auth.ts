@@ -1,6 +1,6 @@
 export interface Auth {
-    isSignedIn: boolean;
-    errorMessage: string[];
+    token: string | null;
+    errorMessage: string[] | null;
 }
 
 export interface Login {

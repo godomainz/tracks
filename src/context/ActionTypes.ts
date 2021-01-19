@@ -9,7 +9,7 @@ export interface Action {
     payload: Auth | any
 }
 
-export type SignUpAction = { type: typeof SIGN_UP, payload: Auth }
+export type SignUpAction = { type: typeof SIGN_UP, payload: string }
 export type SignInAction = { type: typeof SIGN_IN, payload: Auth }
 export type SignOutAction = { type: typeof SIGN_OUT }
 export type AddErrorAction = { type: typeof ADD_ERROR, payload: string[] }

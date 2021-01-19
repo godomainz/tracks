@@ -22,7 +22,6 @@ const SignupScreen = ({ navigation }:Props) => {
     const [password, setPassword ] = useState('');
     const [passwordActive, setPasswordActive] = useState(false);
 
-    console.log(state);
 
     const handleChange = (name:string, value:string) => {
         if(name === 'email'){

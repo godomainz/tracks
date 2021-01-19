@@ -2,10 +2,11 @@ import createDataContext from './createDataContext';
 import { Auth, Login } from './Auth';
 import * as actionTypes from './ActionTypes';
 import trackerApi from '../api/tracker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState: Auth = {
-    isSignedIn: false,
-    errorMessage: []
+    token: null,
+    errorMessage: null
 }
 
 export interface AuthContextType {
@@ -19,18 +20,37 @@ const authReducer = (state:Auth, action:actionTypes.Action): Auth => {
     switch (action.type){
         case actionTypes.ADD_ERROR:
             return {...state, errorMessage: action.payload}
+        case actionTypes.SIGN_UP:
+            return {errorMessage: null, token: action.payload}
         default:
             return state;
     }
 }
 
-const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErrorAction)=> void) => {
-    return async ( {email, password}:Login ) => {
-        let response;
+const storeData = async (key :string,value:string) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const getData = async (key:string) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if(value !== null) {
+        return value;
+      }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErrorAction)=> void) => async ( {email, password}:Login ) => {
         try {
-            response = await trackerApi.post('signup/', { email, password});
-            // response = await trackerApi.post('signin/', { email, password});
-            // console.log(response);
+            const response = await trackerApi.post('signup/', { email, password});
+            await storeData('token',response.data.token);
+            dispatch({ type: actionTypes.SIGN_UP, payload: response.data.token });
         } catch (error) {
             const errors:Object = error.response.data;
             let errorList: string[] = [];
@@ -41,8 +61,8 @@ const signup = (dispatch:(action: actionTypes.SignUpAction | actionTypes.AddErro
             } 
             dispatch({type: actionTypes.ADD_ERROR, payload: errorList });
         }
-    }
-}
+    };
+
 
 const signin = (dispatch:()=>actionTypes.SignUpAction) => {
     return ( {email, password}:Login ) => {
