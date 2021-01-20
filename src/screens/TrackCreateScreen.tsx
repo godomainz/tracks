@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { requestPermissionsAsync } from 'expo-location';
+import { requestPermissionsAsync, watchHeadingAsync, Accuracy, watchPositionAsync } from 'expo-location';
 import { StyleSheet,  } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, theme } from 'galio-framework';
@@ -14,6 +14,14 @@ const TrackCreateScreen = () => {
             const { granted } = await requestPermissionsAsync();
             if (!granted) {
               throw new Error('Location permission not granted');
+            }else{
+                await watchPositionAsync({
+                    accuracy: Accuracy.BestForNavigation,
+                    timeInterval: 1000,
+                    distanceInterval: 1
+                }, (location)=>{
+                    console.log(location);
+                })
             }
           } catch (e) {
             setErr(e);
