@@ -1,11 +1,9 @@
-import React, { useState, useContext } from 'react';
-import {  StyleSheet, Dimensions , KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState } from 'react';
+import {  StyleSheet, Dimensions , Platform } from 'react-native';
 import { Block, Button, Input, Text, theme } from 'galio-framework';
-import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../constants/';
 import { HeaderHeight } from "../constants/utils";
 import Spacer from '../components/Spacer';
-import { Context as AuthContext, AuthContextType } from '../context/AuthContext';
 
 interface Props {
     navigation: any;
