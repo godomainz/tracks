@@ -11,10 +11,9 @@ const initialState: Auth = {
 }
 
 export interface AuthContextType {
-    state: Auth;
     signup: ({email, password}:Login) => void;
     signin: ({email, password}:Login) => void;
-    signout: () => void;
+    signOut: () => void;
     clearErrorMessage: () => void;
     tryLocalSignin: () => void;
 }
@@ -31,6 +30,8 @@ const authReducer = (state:Auth, action:actionTypes.Action): Auth => {
             return {errorMessage: null, token: action.payload}
         case actionTypes.CLEAR_ERROR_MESSAGE:
             return { ...state ,errorMessage: null}
+        case actionTypes.SIGN_OUT:
+            return {errorMessage: null, token: null}
         default:
             return state;
     }
@@ -50,6 +51,14 @@ const getData = async (key:string) => {
       if(value !== null) {
         return value;
       }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+const clearData = async (key:string) => {
+    try {
+      await AsyncStorage.removeItem(key);
     } catch(e) {
         console.log(e);
     }
@@ -105,13 +114,17 @@ const tryLocalSignin = (dispatch:(action: actionTypes.SignInAction | actionTypes
 
 const clearErrorMessage = (dispatch:(action: actionTypes.ClearErrorMessageAction)=>void) => () => {
     dispatch({type : actionTypes.CLEAR_ERROR_MESSAGE});
-
 }
 
-const signOut = (dispatch:()=>actionTypes.SignUpAction) => {
-    return () => {
-        // Somehow sign out !!!
+const signOut = (dispatch:(action: actionTypes.SignOutAction)=>void) => async () => {
+        try {
+            await clearData("token");
+            dispatch({type: actionTypes.SIGN_OUT});
+            navigate("loginFlow");
+        } catch (error) {
+            console.log(error);
+        }
     }
-}
+
 
 export const { Provider, Context } = createDataContext(authReducer, { signup, signin, signOut, clearErrorMessage, tryLocalSignin }, initialState);
