@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import {  StyleSheet, Dimensions , KeyboardAvoidingView, Platform } from 'react-native';
-import { Block, theme, Button } from 'galio-framework';
+import { SafeAreaView } from 'react-navigation';
+import {  StyleSheet, Dimensions , KeyboardAvoidingView } from 'react-native';
+import { Block, theme, Button, Text } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../constants/';
 import { AuthContextType, Context as AuthContext } from '../context/AuthContext';
-
+import Spacer from '../components/Spacer';
 const { height, width } = Dimensions.get('window');
 const AccountScreen = () => {
     const { signOut } = useContext(AuthContext) as AuthContextType;
@@ -14,17 +15,20 @@ const AccountScreen = () => {
         end={{ x: 0.25, y: 1.1 }}
         locations={[0.2, 1]}
         colors={['#6C24AA', '#15002B']}
-        style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
+        style={[{ flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
         <Block flex middle>
             <KeyboardAvoidingView behavior="padding" enabled>
-                <Block flex={1} center space="between">
-                <Button
-                    shadowless
-                    style={{ height: 48, width: width * 0.9}}
-                    color={materialTheme.COLORS.BUTTON_COLOR}
-                    onPress={signOut}>
-                    LOGOUT
-                </Button>
+                <Block flex={1} center >
+                <SafeAreaView forceInset={{top: "always"}}>
+                    <Spacer><Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 2}>Account Screen</Text></Spacer>
+                    <Button
+                        shadowless
+                        style={{ height: 48, width: width * 0.9}}
+                        color={materialTheme.COLORS.BUTTON_COLOR}
+                        onPress={signOut}>
+                        LOGOUT
+                    </Button>
+                </SafeAreaView>
                 </Block>
             </KeyboardAvoidingView>
         </Block>
@@ -39,10 +43,6 @@ AccountScreen.navigationOptions = () => {
     };
 };
 
-const styles = StyleSheet.create({
-    signup: {
-      marginTop: Platform.OS === 'android' ? - 10 : 0,
-    }
-  });
+const styles = StyleSheet.create({});
 
 export default AccountScreen;
