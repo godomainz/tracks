@@ -16,6 +16,7 @@ export interface AuthContextType {
     signin: ({email, password}:Login) => void;
     signout: () => void;
     clearErrorMessage: () => void;
+    tryLocalSignin: () => void;
 }
 
 const authReducer = (state:Auth, action:actionTypes.Action): Auth => {
@@ -92,6 +93,16 @@ const signin = (dispatch:(action: actionTypes.SignInAction | actionTypes.SignInE
     }
 };
 
+const tryLocalSignin = (dispatch:(action: actionTypes.SignInAction | actionTypes.SignInErrorAction)=>void) => async () => {
+    const token = await getData("token");
+    if(token){
+        dispatch({type: actionTypes.SIGN_IN, payload: token});
+        navigate("TrackList");
+    } else {
+        navigate("Signup");
+    }
+} 
+
 const clearErrorMessage = (dispatch:(action: actionTypes.ClearErrorMessageAction)=>void) => () => {
     dispatch({type : actionTypes.CLEAR_ERROR_MESSAGE});
 
@@ -103,4 +114,4 @@ const signOut = (dispatch:()=>actionTypes.SignUpAction) => {
     }
 }
 
-export const { Provider, Context } = createDataContext(authReducer, { signup, signin, signOut, clearErrorMessage }, initialState);
+export const { Provider, Context } = createDataContext(authReducer, { signup, signin, signOut, clearErrorMessage, tryLocalSignin }, initialState);

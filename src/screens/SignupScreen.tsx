@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext, AuthContextType } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
@@ -12,9 +12,14 @@ interface Props {
 
 const SignupScreen = ({ navigation }:Props) => {
 
-    const { state, signup, clearErrorMessage } = useContext(AuthContext) as AuthContextType;
+    const { state, signup, clearErrorMessage, tryLocalSignin } = useContext(AuthContext) as AuthContextType;
     const authForm = <AuthForm errorMessage={state.errorMessage} screenName="Sign Up" onSubmit={signup} navigation={navigation}/>;
     const navLink =  <NavLink text="Already have an account? Sign In" routeName="Signin"/>;
+
+    useEffect(() => {
+        tryLocalSignin();
+    } , []);
+
     return (
         <>
             <NavigationEvents onWillFocus={clearErrorMessage}/>
