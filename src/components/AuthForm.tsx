@@ -22,8 +22,6 @@ const AuthForm = ({ onSubmit, screenName, errorMessage }:Props) => {
     const [emailActive, setEmailActive] = useState(false);
     const [password, setPassword ] = useState('');
     const [passwordActive, setPasswordActive] = useState(false);
-    console.log(screenName);
-    console.log(errorMessage)
 
     const handleChange = (name:string, value:string) => {
         if(name === 'email'){
