@@ -4,6 +4,7 @@ import { StyleSheet,  } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, theme } from 'galio-framework';
 import Map from '../components/Map';
+import '../_mockLocation';
 
 const TrackCreateScreen = () => {
     const [err, setErr] = useState<string | null>(null)
