@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { StyleSheet,  } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, theme } from 'galio-framework';
 import Map from '../components/Map';
@@ -7,11 +8,15 @@ import { Context as LocationContext, LocationContextType } from '../context/Loca
 import useLocation from '../hooks/useLocation';
 import '../_mockLocation';
 
-const TrackCreateScreen = () => {
+interface Props {
+    isFocused: boolean;
+}
+
+const TrackCreateScreen = ( { isFocused }:Props ) => {
 
     const { addLocation } = useContext(LocationContext) as LocationContextType;
     const [ err ] = useLocation(addLocation);
-    
+    console.log(isFocused);
     return (
         <SafeAreaView>
             <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>
@@ -25,4 +30,4 @@ const TrackCreateScreen = () => {
 
 const styles = StyleSheet.create({});
 
-export default TrackCreateScreen;
+export default withNavigationFocus(TrackCreateScreen);
