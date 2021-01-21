@@ -15,7 +15,7 @@ interface Props {
 const TrackCreateScreen = ( { isFocused }:Props ) => {
 
     const { addLocation } = useContext(LocationContext) as LocationContextType;
-    const [ err ] = useLocation(addLocation);
+    const [ err ] = useLocation(isFocused, addLocation);
     console.log(isFocused);
     return (
         <SafeAreaView>
