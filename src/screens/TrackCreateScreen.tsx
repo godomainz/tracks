@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { requestPermissionsAsync, watchHeadingAsync, Accuracy, watchPositionAsync } from 'expo-location';
+import React, { useEffect, useState, useContext } from 'react';
+import { requestPermissionsAsync, Accuracy, watchPositionAsync } from 'expo-location';
 import { StyleSheet,  } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, theme } from 'galio-framework';
 import Map from '../components/Map';
+import { Context as LocationContext, LocationContextType } from '../context/LocationContext';
 import '../_mockLocation';
 
 const TrackCreateScreen = () => {
+
+    const { addLocation } = useContext(LocationContext) as LocationContextType;
     const [err, setErr] = useState<string | null>(null)
 
     const startWatching = async () => {
@@ -20,7 +23,7 @@ const TrackCreateScreen = () => {
                     timeInterval: 1000,
                     distanceInterval: 1
                 }, (location)=>{
-                    console.log(location);
+                    addLocation(location);
                 })
             }
           } catch (e) {

@@ -6,6 +6,7 @@ export const ADD_ERROR = "ADD_ERROR";
 export const SIGNIN_ERROR = "SIGNIN_ERROR";
 export const CLEAR_ERROR_MESSAGE = "CLEAR_ERROR_MESSAGE";
 
+
 export interface Action {
     type: typeof SIGN_UP | typeof SIGN_IN | typeof SIGN_OUT | typeof ADD_ERROR | typeof SIGNIN_ERROR | typeof CLEAR_ERROR_MESSAGE,
     payload: Auth | any
