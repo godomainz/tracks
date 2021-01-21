@@ -11,6 +11,7 @@ const initialState: Auth = {
 }
 
 export interface AuthContextType {
+    state: any;
     signup: ({email, password}:Login) => void;
     signin: ({email, password}:Login) => void;
     signOut: () => void;

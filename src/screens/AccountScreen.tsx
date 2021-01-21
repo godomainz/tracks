@@ -1,13 +1,19 @@
 import React, { useContext } from 'react';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {  StyleSheet, Dimensions , KeyboardAvoidingView } from 'react-native';
 import { Block, theme, Button, Text } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../constants/';
 import { AuthContextType, Context as AuthContext } from '../context/AuthContext';
 import Spacer from '../components/Spacer';
+
+interface Props {
+    navigation: any;
+}
+
 const { height, width } = Dimensions.get('window');
-const AccountScreen = () => {
+
+const AccountScreen = ({ navigation }:Props) => {
     const { signOut } = useContext(AuthContext) as AuthContextType;
     return (
         <LinearGradient
@@ -19,7 +25,7 @@ const AccountScreen = () => {
         <Block flex middle>
             <KeyboardAvoidingView behavior="padding" enabled>
                 <Block flex={1} center >
-                <SafeAreaView forceInset={{top: "always"}}>
+                <SafeAreaView>
                     <Spacer><Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 2}>Account Screen</Text></Spacer>
                     <Button
                         shadowless
@@ -37,11 +43,6 @@ const AccountScreen = () => {
 
 }
 
-AccountScreen.navigationOptions = () => {
-    return {
-      headerShown: false,
-    };
-};
 
 const styles = StyleSheet.create({});
 
