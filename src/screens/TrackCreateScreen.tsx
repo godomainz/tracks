@@ -7,6 +7,7 @@ import Map from '../components/Map';
 import { Context as LocationContext, LocationContextType } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
 import '../_mockLocation';
+import TrackForm from '../components/TrackForm';
 
 interface Props {
     isFocused: boolean;
@@ -16,12 +17,12 @@ const TrackCreateScreen = ( { isFocused }:Props ) => {
 
     const { addLocation } = useContext(LocationContext) as LocationContextType;
     const [ err ] = useLocation(isFocused, addLocation);
-    console.log(isFocused);
     return (
         <SafeAreaView>
             <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>
             <Map/>
             {err ? <Text style={{color:"red"}}>Please enable location services</Text>: null }
+            <TrackForm />
         </SafeAreaView>
 
     );
