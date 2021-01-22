@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { StyleSheet,  } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,9 +16,10 @@ interface Props {
 const TrackCreateScreen = ( { isFocused }:Props ) => {
 
     const { state , addLocation } = useContext(LocationContext) as LocationContextType;
-    const [ err ] = useLocation(isFocused, (location)=> {
+    const callback = useCallback((location)=> {
         addLocation(location, state.recording)
-    });
+    },[state.recording]);
+    const [ err ] = useLocation(isFocused, callback);
     return (
         <SafeAreaView>
             <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>

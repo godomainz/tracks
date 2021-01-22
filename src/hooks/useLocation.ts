@@ -32,7 +32,7 @@ export default (shouldTrack: boolean, callback:(location:any)=>void) => {
             subscriber.remove();
             setSubscriber(null);
         }
-    }, [shouldTrack])
+    }, [shouldTrack, callback])
 
     return [err];
 }
