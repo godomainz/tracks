@@ -15,11 +15,11 @@ interface Props {
 
 const TrackCreateScreen = ( { isFocused }:Props ) => {
 
-    const { state , addLocation } = useContext(LocationContext) as LocationContextType;
+    const { state: {recording} , addLocation } = useContext(LocationContext) as LocationContextType;
     const callback = useCallback((location)=> {
-        addLocation(location, state.recording)
-    },[state.recording]);
-    const [ err ] = useLocation(isFocused, callback);
+        addLocation(location, recording)
+    },[recording]);
+    const [ err ] = useLocation(isFocused || recording, callback);
     return (
         <SafeAreaView>
             <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>
