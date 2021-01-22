@@ -6,7 +6,7 @@ import { Context as LocationContext, LocationContextType } from '../context/Loca
 
 const TrackForm = () => {
     const { state: { name, recording, locations }, startRecording, stopRecording, changeName } = useContext(LocationContext) as LocationContextType;
-    console.log(locations.length);
+    
     return (
         <>
             <Spacer>
