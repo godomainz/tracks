@@ -1,4 +1,5 @@
 import createDataContext from './createDataContext';
+import trackerApi from '../api/tracker';
 
 export interface TrackContextType {
     fetchTracks: () => void;
