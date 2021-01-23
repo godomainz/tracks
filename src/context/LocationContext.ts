@@ -15,6 +15,7 @@ export interface LocationContextType {
     stopRecording: () => void;
     addLocation: (location:any, recording:boolean) => void;
     changeName: (name:string) => void;
+    reset: () => void;
 }
 
 const locationReducer = (state:Location, action:actionTypes.Action) => {
@@ -29,6 +30,8 @@ const locationReducer = (state:Location, action:actionTypes.Action) => {
             return { ...state, locations: [ ...state.locations, action.payload ] };
         case actionTypes.CHANGE_NAME:
             return { ...state, name: action.payload };
+        case actionTypes.RESET:
+            return { ...state, name: '', locations: '' };
         default:
             return state;
     }
@@ -50,5 +53,8 @@ const addLocation = (dispatch:(action: actionTypes.AddCurrentLocationAction | ac
         dispatch({type: actionTypes.ADD_LOCATION, payload: location})
     }
 };
+const reset = (dispatch:(action:actionTypes.ResetAction)=>void) => () => {
+    dispatch({type: actionTypes.RESET});
+};
 
-export const { Context, Provider } = createDataContext(locationReducer, { startRecording, stopRecording, addLocation, changeName }, initialState);
+export const { Context, Provider } = createDataContext(locationReducer, { startRecording, stopRecording, addLocation, changeName, reset }, initialState);

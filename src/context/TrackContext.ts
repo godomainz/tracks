@@ -15,8 +15,8 @@ const trackReducer = (state:any, action:any) => {
 }
 
 const fetchTracks = (dispatch:any) => () => {};
-const createTracks = (dispatch:any) => (name:string, locations:[]) => {
-    console.log(name, locations.length)
+const createTracks = (dispatch:any) => async (name:string, locations:[]) => {
+    await trackerApi.post('track/', { name, locations })
 };
 
 export const { Provider, Context } = createDataContext( trackReducer, { fetchTracks, createTracks }, [] );
