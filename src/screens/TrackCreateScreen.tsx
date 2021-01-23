@@ -1,7 +1,6 @@
 import React, { useContext, useCallback } from 'react';
-import { StyleSheet,  } from 'react-native';
+import { StyleSheet, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback  } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, theme } from 'galio-framework';
 import Map from '../components/Map';
 import { Context as LocationContext, LocationContextType } from '../context/LocationContext';
@@ -21,12 +20,14 @@ const TrackCreateScreen = ( { isFocused }:Props ) => {
     },[recording]);
     const [ err ] = useLocation(isFocused || recording, callback);
     return (
-        <SafeAreaView>
-            <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>
-            <Map/>
-            {err ? <Text style={{color:"red"}}>Please enable location services</Text>: null }
-            <TrackForm />
-        </SafeAreaView>
+            <KeyboardAvoidingView behavior="position">
+                    <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>
+                    <Map/>
+                    {err ? <Text style={{color:"red"}}>Please enable location services</Text>: null }
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <TrackForm />
+                    </TouchableWithoutFeedback>
+            </KeyboardAvoidingView> 
 
     );
 

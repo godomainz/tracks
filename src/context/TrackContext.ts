@@ -1,5 +1,11 @@
 import createDataContext from './createDataContext';
 
+export interface TrackContextType {
+    fetchTracks: () => void;
+    createTracks: (name:string, locations:[]) => void;
+}
+
+
 const trackReducer = (state:any, action:any) => {
     switch (action.type){
         default:
@@ -8,6 +14,8 @@ const trackReducer = (state:any, action:any) => {
 }
 
 const fetchTracks = (dispatch:any) => () => {};
-const createTracks = (dispatch:any) => () => {};
+const createTracks = (dispatch:any) => (name:string, locations:[]) => {
+    console.log(name, locations.length)
+};
 
 export const { Provider, Context } = createDataContext( trackReducer, { fetchTracks, createTracks }, [] );
