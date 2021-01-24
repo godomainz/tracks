@@ -10,15 +10,16 @@ interface Props {
 
 const TrackListScreen = ({ navigation }: Props) => {
     const { state , fetchTracks } = useContext(TrackContext) as TrackContextType;
-    
     return (
         <>
             <NavigationEvents onWillFocus={fetchTracks} />
             <Text>Hello from TrackListScreen</Text>
-            {(state.length > 0) && <FlatList data={state} keyExtractor={item=>item.timestamp} renderItem={ ({ item }) => <TouchableOpacity>
+            {(state.length > 0) && <FlatList data={state} keyExtractor={item=>item.id.toString()} renderItem={ ({ item }) => 
+            <TouchableOpacity onPress={() => { navigation.navigate('TrackDetail',{ _id: item.id }) }}>
                 <ListItem>
                     <ListItem.Content>
                         <ListItem.Title>{item.name}</ListItem.Title>
+                        <ListItem.Title>{item.id}</ListItem.Title>
                     </ListItem.Content>
                     <ListItem.Chevron />
                 </ListItem>
