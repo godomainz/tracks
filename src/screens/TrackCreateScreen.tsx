@@ -5,8 +5,9 @@ import { Text, theme } from 'galio-framework';
 import Map from '../components/Map';
 import { Context as LocationContext, LocationContextType } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
-import '../_mockLocation';
+// import '../_mockLocation';
 import TrackForm from '../components/TrackForm';
+import { FontAwesome } from "@expo/vector-icons";
 
 interface Props {
     isFocused: boolean;
@@ -21,7 +22,7 @@ const TrackCreateScreen = ( { isFocused }:Props ) => {
     const [ err ] = useLocation(isFocused || recording, callback);
     return (
             <KeyboardAvoidingView behavior="position">
-                    <Text size={theme.SIZES.FONT * 2}>Create a Track</Text>
+                    <Text style={{marginTop:30}} size={theme.SIZES.FONT * 2}>Create a Track</Text>
                     <Map/>
                     {err ? <Text style={{color:"red"}}>Please enable location services</Text>: null }
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -31,6 +32,11 @@ const TrackCreateScreen = ( { isFocused }:Props ) => {
 
     );
 
+}
+
+TrackCreateScreen.navigationOptions = {
+    title: "Add Track",
+    tabBarIcon: <FontAwesome name="plus" size={20}/>
 }
 
 const styles = StyleSheet.create({});

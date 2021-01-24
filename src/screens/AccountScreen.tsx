@@ -6,6 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../constants/';
 import { AuthContextType, Context as AuthContext } from '../context/AuthContext';
 import Spacer from '../components/Spacer';
+import { FontAwesome } from "@expo/vector-icons";
 
 interface Props {
     navigation: any;
@@ -43,6 +44,10 @@ const AccountScreen = ({ navigation }:Props) => {
 
 }
 
+AccountScreen.navigationOptions = {
+    title: "Account",
+    tabBarIcon: <FontAwesome name="gear" size={20}/>
+}
 
 const styles = StyleSheet.create({});
 

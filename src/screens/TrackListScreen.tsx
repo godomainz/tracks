@@ -13,7 +13,6 @@ const TrackListScreen = ({ navigation }: Props) => {
     return (
         <>
             <NavigationEvents onWillFocus={fetchTracks} />
-            <Text>Hello from TrackListScreen</Text>
             {(state.length > 0) && <FlatList data={state} keyExtractor={item=>item.id.toString()} renderItem={ ({ item }) => 
             <TouchableOpacity onPress={() => { navigation.navigate('TrackDetail',{ _id: item.id }) }}>
                 <ListItem>
@@ -26,6 +25,10 @@ const TrackListScreen = ({ navigation }: Props) => {
             </TouchableOpacity> }/>}
         </>
     );
+}
+
+TrackListScreen.navigationOptions = {
+    title: 'TrackList Screen'
 }
 
 const styles = StyleSheet.create({});
